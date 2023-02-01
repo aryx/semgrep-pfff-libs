@@ -1,0 +1,15 @@
+(library
+ (public_name commons.tests)
+ (name commons_tests)
+ (wrapped false)
+ (libraries
+   alcotest
+   commons
+ )
+ (preprocess
+   (pps
+     ppx_profiling
+     ppx_deriving.show
+   )
+ )
+)
