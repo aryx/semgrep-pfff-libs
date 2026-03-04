@@ -1,0 +1,144 @@
+(lang dune 3.7)
+
+(name semgrep-libs)
+(using menhir 2.1)
+(map_workspace_root false)
+
+(generate_opam_files)
+(version 1.0.0)
+
+(source (github aryx/semgrep-libs))
+(maintainers "Yoann Padioleau <yoann.padioleau@gmail.com>")
+(authors "Yoann Padioleau <yoann.padioleau@gmail.com>")
+(license "LGPL-2.1-only")
+
+;; Packages
+
+(package (name TCB)
+  (synopsis "Trusted Computing Base: capability types for OCaml")
+  (description "Capability types (Cap.ml) enforcing restricted I/O access across a codebase.")
+)
+
+(package
+  (name commons)
+  (version 1.8.0)
+  (synopsis "Yet another set of common utilities")
+  (description "\
+This is a small library of utilities used by Semgrep and
+a few other projects developed at r2c.
+"
+  )
+  (depends
+    (ocaml (>= "4.13.0"))
+    (dune (>= "3.2.0" ))
+    (ANSITerminal (>= "0.8.4"))
+    (alcotest (>= "1.5.0"))
+    (cmdliner (>= "1.1.1" ))
+    (logs (>= "0.7.0" ))
+    (yojson (>= "1.7.0"))
+    (re (>= "1.10.4"))
+    (pcre (>= "7.5.0" ))
+    (pcre2 (>= "7.5.3" ))
+    (ppxlib (>= "0.25.0"))
+    (ppx_deriving (>= "5.2.1"))
+    (ppx_hash (>= "v0.14.0" ))
+    (digestif (>= "1.0.0"))
+    uri
+    bos
+  )
+)
+
+(package (name commons2)
+  (synopsis "Extended common utilities")
+  (description "Additional common utilities beyond commons.")
+)
+(package (name concurrency)
+  (synopsis "Concurrency utilities")
+  (description "Concurrency utilities for OCaml.")
+)
+(package (name gitignore)
+  (synopsis "Gitignore pattern matching")
+  (description "Gitignore pattern matching library.")
+)
+(package (name git_wrapper)
+  (synopsis "Wrappers for the git CLI")
+  (description "Utility functions for interacting with git on the command-line.")
+)
+(package (name glob)
+  (synopsis "Glob pattern matching")
+  (description "Glob pattern matching library.")
+)
+(package (name networking)
+  (synopsis "Networking utilities")
+  (description "Networking utilities for OCaml.")
+)
+(package (name murmur3)
+  (synopsis "MurmurHash3 implementation")
+  (description "MurmurHash3 hash function implementation with C stubs.")
+)
+(package (name lwt_platform)
+  (synopsis "Lwt platform abstraction")
+  (description "Lwt platform abstraction layer.")
+)
+(package (name ograph)
+  (synopsis "Graph library")
+  (description "Object-oriented graph library for OCaml.")
+)
+(package (name parallelism)
+  (synopsis "Parallelism utilities")
+  (description "Parallelism utilities for OCaml.")
+)
+(package (name paths)
+  (synopsis "Path utilities")
+  (description "Path manipulation utilities.")
+)
+(package
+  (name process_limits)
+  (version 1.5.5)
+  (synopsis "Setting time and memory limits for your program")
+  (description "\
+This is a small library of utilities used by Semgrep and
+a few other projects developed at r2c to control the
+time and memory used by Semgrep.
+"
+  )
+  (depends
+    (ocaml (>= "4.13.0"))
+    (dune (>= "3.2.0" ))
+    (commons (>= "1.5.5"))
+  )
+)
+(package
+  (name profiling)
+  (version "1.5.5")
+  (synopsis "Small library to help profile code")
+  (description "\
+This is a small library of utilities used by Semgrep and
+a few other projects developed at r2c to monitor and profile
+functions.
+"
+  )
+  (depends
+    (ocaml (>= "4.13.0"))
+    (dune (>= "3.2.0" ))
+    (commons (>= "1.5.5"))
+    (process_limits (>= "1.5.5"))
+  )
+)
+(package
+  (name tracing)
+  (version "1.5.5")
+  (synopsis "Small library to help trace code")
+  (description "\
+This is a small library of utilities used by Semgrep to
+trace functions for the purpose of reporting them in
+metrics
+"
+  )
+  (depends
+    (ocaml (>= "4.13.0"))
+    (dune (>= "3.2.0" ))
+    (commons (>= "1.5.5"))
+  )
+)
+;; python-str-repr has its own dune-project in libs/python-str-repr/
