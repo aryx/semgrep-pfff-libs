@@ -141,4 +141,17 @@ metrics
     (commons (>= "1.5.5"))
   )
 )
+(package (name commons2_)
+  (synopsis "Extended commons utilities (codemap variant)")
+  (description "Additional common utilities from codemap, distinct from commons2.")
+)
+(package (name files-format)
+  (synopsis "File format utilities")
+  (description "Outline, source-tree, and simple-format helpers.")
+)
+(package (name visualization)
+  (synopsis "Treemap visualization library")
+  (description "Treemap layout algorithms and plotting utilities.")
+)
+
 ;; python-str-repr has its own dune-project in libs/python-str-repr/
