@@ -17,9 +17,7 @@
 (* Types *)
 (*****************************************************************************)
 
-type filename = string
 type dirname = string
-type path = string
 type float_time = float
 
 (** file position as line number (1-based) *)
@@ -31,7 +29,6 @@ type filepos = int
 
 type score_result = Ok | Pb of string
 type score = (string, score_result) Hashtbl.t
-type score_list = (string * score_result) list
 
 val empty_score : unit -> score
 val regression_testing : score -> string (* best_score_file *) -> unit

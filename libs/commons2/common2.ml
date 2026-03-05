@@ -104,9 +104,7 @@ let chop = function
 (* Types *)
 (*###########################################################################*)
 
-type filename = string
 type dirname = string
-type path = string
 type float_time = float
 type filepos = int
 
@@ -116,8 +114,6 @@ type filepos = int
 
 type score_result = Ok | Pb of string
 type score = (string, score_result) Hashtbl.t
-type score_list = (string * score_result) list
-
 let empty_score () : score = Hashtbl.create 101
 
 let optionise f =
