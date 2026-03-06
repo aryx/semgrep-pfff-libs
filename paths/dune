@@ -7,6 +7,7 @@
      fpath
 
      commons
+     commons.testutils
      profiling
   )
   (preprocess (pps

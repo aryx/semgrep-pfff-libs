@@ -12,6 +12,7 @@
      timedesc
 
      commons
+     commons.testutils
      paths
      git
   )

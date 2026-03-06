@@ -7,6 +7,7 @@
     glob
     profiling
     paths
+    commons.testutils
     logs
   )
   (preprocess (pps

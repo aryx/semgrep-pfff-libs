@@ -1,0 +1,24 @@
+(library
+ (name commons_testutils)
+ (public_name commons.testutils)
+ (wrapped false)
+ (flags (:standard -open TCB))
+ (libraries
+   TCB
+   commons.core
+   commons.unsafe
+   ; stdlib
+   unix
+   ; external libs
+   fpath
+   testo
+   alcotest
+   logs
+ )
+ (inline_tests)
+ (preprocess
+   (pps
+     ppx_inline_test
+   )
+ )
+)

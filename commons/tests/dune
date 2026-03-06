@@ -6,5 +6,6 @@
    alcotest
    testo
    commons
+   commons.testutils
  )
 )
