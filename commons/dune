@@ -6,6 +6,8 @@
    (re_export commons.base)
    (re_export commons.collections)
    (re_export commons.regexps)
+   (re_export commons.core)
+   commons.unsafe
    TCB
    ; stdlib
    str

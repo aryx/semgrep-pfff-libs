@@ -1,0 +1,19 @@
+(library
+ (name commons_unsafe)
+ (public_name commons.unsafe)
+ (wrapped false)
+ (flags (:standard -open TCB))
+ (libraries
+   TCB
+   commons.core
+   ; stdlib
+   unix
+   ; external libs
+   bos
+   astring
+   re
+   logs
+   testo
+   ANSITerminal
+ )
+)
