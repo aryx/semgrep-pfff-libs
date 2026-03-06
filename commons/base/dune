@@ -1,0 +1,20 @@
+(library
+ (name commons_base)
+ (public_name commons.base)
+ (wrapped false)
+ (flags (:standard -open TCB))
+ (libraries
+   TCB
+   str
+   sexplib
+ )
+ (inline_tests)
+ (preprocess
+   (pps
+     ppx_deriving.show
+     ppx_deriving.eq
+     ppx_sexp_conv
+     ppx_inline_test
+   )
+ )
+)

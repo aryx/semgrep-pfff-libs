@@ -3,6 +3,8 @@
  (wrapped false)
  (flags (:standard -open TCB))
  (libraries
+   (re_export commons.base)
+   (re_export commons.collections)
    TCB
    ; stdlib
    str
