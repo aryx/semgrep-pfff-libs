@@ -8,7 +8,7 @@ open Fpath_.Operators
 (* Types *)
 (*****************************************************************************)
 
-(* TODO? seems very similar to Testutil_files.ml in libs/commons, we
+(* TODO? seems very similar to Testutil_files.ml in commons/, we
  * should factorize and get rid of one.
  *)
 type file_tree = Dir of string * file_tree list | File of string * file_kind

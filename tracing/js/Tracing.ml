@@ -17,7 +17,7 @@
 (* Prelude *)
 (*****************************************************************************)
 
-(* See libs/tracing/unix/Tracing.ml. This is the virtual module to allow
+(* See tracing/unix/Tracing.ml. This is the virtual module to allow
    JS to build without requiring curl to be installed *)
 
 (*****************************************************************************)

@@ -71,7 +71,7 @@ module Stdlib = struct end
 (**************************************************************************)
 (* Exceptions (see also Printexc module) *)
 (**************************************************************************)
-(* see also libs/commons/Exception.ml *)
+(* see also commons/Exception.ml *)
 
 (*
 external raise : exn -> 'a = "%raise"
@@ -89,7 +89,7 @@ exception Exit
 (* Comparisons *)
 (**************************************************************************)
 
-(* See also libs/commons/Common.mli which restrict those operations *)
+(* See also commons/Common.mli which restrict those operations *)
 
 (*
 external ( = ) : 'a -> 'a -> bool = "%equal"

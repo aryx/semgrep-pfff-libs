@@ -20,7 +20,7 @@ module Log = Log_paths.Log
 (*
    List files recursively in a safe, efficient, and portable manner.
 
-   Replaces the functions in libs/commons/ that use external UNIX commands
+   Replaces the functions in commons/ that use external UNIX commands
    such as 'find'.
 *)
 

@@ -148,7 +148,7 @@ module Process = struct
   type domain = cap
 
   (* old: was alarm, but better rename to be consistent with memory_limit
-   * See libs/process_limits/
+   * See process_limits/
    *)
   type time_limit = cap
   type memory_limit = cap

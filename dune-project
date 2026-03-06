@@ -146,4 +146,4 @@ metrics
   (description "Treemap layout algorithms and plotting utilities.")
 )
 
-;; python-str-repr has its own dune-project in libs/python-str-repr/
+;; python-str-repr has its own dune-project in python-str-repr/

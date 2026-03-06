@@ -705,7 +705,7 @@ let project_url ?cwd () : string option =
       UFile.find_first_match_with_whole_line (Fpath.v ".git/config") ".com"
 
 (* coupling: with semgrep_output_v1.atd contribution type, but
- * duplicated here to avoid depending on semgrep-specific code from libs/
+ * duplicated here to avoid depending on semgrep-specific code from semgrep-pfff-libs/
  * alt: move logs() below to Parse_contribution.ml which would avoid some
  * duplication or pass the format string as a parameter and handle the
  * parsing in the caller

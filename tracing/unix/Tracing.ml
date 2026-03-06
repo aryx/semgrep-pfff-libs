@@ -55,8 +55,8 @@ open Common
  * See also https://www.notion.so/semgrep/How-to-add-tracing-b0e1eaa1531e408cbb074663d1f840a6
  *
  * TODO:
- *  - code in libs/ should be independent of semgrep, so some of the
- *    hardcoded endpoints below should be moved to src/, not in libs/
+ *  - code in semgrep-pfff-libs/ should be independent of semgrep, so some of the
+ *    hardcoded endpoints below should be moved to src/
  *  - get rid of our dependency to curl, but the current alternative is to
  *    use Opentelemetry_client_cohttp_lwt which require to lwt-ify the code
  *    which is annoying. Does opentelemetry have an eio backend?

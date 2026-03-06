@@ -112,7 +112,7 @@ val of_relative_fpath : Fpath.t -> t
 *)
 val relativize : root:t -> t -> Fpath.t
 
-(* Imitate File.Operators in libs/commons/ *)
+(* Imitate File.Operators in commons/ *)
 module Operators : sig
   (* Same as append *)
   val ( / ) : t -> string -> t
