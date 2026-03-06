@@ -142,9 +142,7 @@ end
 (* Option *)
 (*###########################################################################*)
 
-val some : 'a option -> 'a
 val optionise : (unit -> 'a) -> 'a option
-val option_to_list : 'a option -> 'a list
 
 (*###########################################################################*)
 (* Pair *)
@@ -281,12 +279,10 @@ val count_elements_sorted_highfirst : 'a list -> ('a * int) list
 val or_list : bool list -> bool
 val and_list : bool list -> bool
 val return_when : ('a -> 'b option) -> 'a list -> 'b
-val hd_opt : 'a list -> 'a option
 val iter_with_previous_opt : ('a option -> 'a -> unit) -> 'a list -> unit
 val repeat : 'a -> int -> 'a list
 val foldl1 : ('a -> 'a -> 'a) -> 'a list -> 'a
 val foldn : ('a -> int -> 'a) -> 'a -> int -> 'a
-val filter : ('a -> bool) -> 'a list -> 'a list
 val zip : 'a list -> 'b list -> ('a * 'b) list
 val unzip : ('a * 'b) list -> 'a list * 'b list
 val unzip3 : ('a * 'b * 'c) list -> 'a list * 'b list * 'c list
@@ -308,8 +304,6 @@ val ( $+$ ) : 'a set -> 'a set -> 'a set
 
 val keys : ('a * 'b) list -> 'a list
 val sort_by_key_highfirst : ('a, 'b) assoc -> ('a * 'b) list
-val assoc : 'a -> ('a * 'b) list -> 'b
-val assoc_opt : 'a -> ('a * 'b) list -> 'b option
 
 (*###########################################################################*)
 (* Hash *)
