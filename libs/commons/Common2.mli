@@ -1,3 +1,18 @@
+(* Yoann Padioleau
+ *
+ * Copyright (C) 1998-2009 Yoann Padioleau
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * version 2.1 as published by the Free Software Foundation, with the
+ * special exception on linking described in file license.txt.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the file
+ * license.txt for more details.
+ *)
+
 (*###########################################################################*)
 (* Globals *)
 (*###########################################################################*)
@@ -17,6 +32,9 @@ type path = string
 
 type float_time = float
 
+(** file position as line number (1-based) *)
+type filepos = int
+
 type 'a pair = 'a * 'a
 
 type 'a matrix = 'a array array
@@ -30,6 +48,27 @@ type 'a tree2 = Tree of 'a * 'a tree2 list
 type ('a, 'b) tree = Node of 'a * ('a, 'b) tree list | Leaf of 'b
 
 (*###########################################################################*)
+(* Scoring / regression testing *)
+(*###########################################################################*)
+
+type score_result = Ok | Pb of string
+type score = (string, score_result) Hashtbl.t
+
+val empty_score : unit -> score
+val regression_testing : score -> string (* best_score_file *) -> unit
+
+(*###########################################################################*)
+(* Modules *)
+(*###########################################################################*)
+
+module StringSet : sig
+  include Set.S with type elt = string
+
+  val of_list : string list -> t
+  val to_list : t -> string list
+end
+
+(*###########################################################################*)
 (* Debugging/logging *)
 (*###########################################################################*)
 
@@ -37,6 +76,11 @@ val pr2_no_nl : string -> unit
 val pr2_xxxxxxxxxxxxxxxxx : unit -> unit
 
 val log2 : string -> unit
+
+val example : bool -> unit
+val error_cant_have : 'a -> 'b
+val warning : string -> 'a -> 'a
+val mk_pr2_wrappers : bool ref -> (string -> unit) * (string -> unit)
 
 (*###########################################################################*)
 (* Exn *)
@@ -76,6 +120,7 @@ val square : float -> float
 val borne : min:'a -> max:'a -> 'a -> 'a
 
 val sum : int list -> int
+val sum_int : int list -> int
 val sum_float : float list -> float
 
 val pourcent : int -> int -> int
@@ -99,12 +144,15 @@ end
 
 val some : 'a option -> 'a
 val optionise : (unit -> 'a) -> 'a option
+val option_to_list : 'a option -> 'a list
 
 (*###########################################################################*)
 (* Pair *)
 (*###########################################################################*)
 
 val pair : ('a -> 'b) -> 'a * 'a -> 'b * 'b
+val fst3 : 'a * 'b * 'c -> 'a
+val thd3 : 'a * 'b * 'c -> 'c
 
 (*###########################################################################*)
 (* String *)
@@ -113,6 +161,23 @@ val pair : ('a -> 'b) -> 'a * 'a -> 'b * 'b
 val is_blank_string : string -> bool
 val n_space : int -> string
 val split_list_regexp : string -> string list -> (string * string list) list
+
+val string_of_char : char -> string
+val string_of_chars : char list -> string
+val string_of_list : ('a -> string) -> 'a list -> string
+val string_of_option : ('a -> string) -> 'a option -> string
+val list_of_string : string -> char list
+val chop : string -> string
+val strip : char -> string -> string
+val string_match_substring : Str.regexp -> string -> bool
+
+(*###########################################################################*)
+(* Numeric *)
+(*###########################################################################*)
+
+val float_of_string_opt : string -> float option
+val int64_of_string_opt : string -> int64 option
+val int64_of_string_c_octal_opt : string -> int64 option
 
 (*###########################################################################*)
 (* Filename *)
@@ -149,6 +214,9 @@ val lines : string -> string list
 val unlines : string list -> string
 val lines_with_nl_either : string -> (string, unit) Either.t list
 
+val glob : string -> string list
+val unix_diff : string -> string -> string list
+
 (*###########################################################################*)
 (* Dates *)
 (*###########################################################################*)
@@ -178,6 +246,7 @@ val month_of_string : string -> month
 val unixtime_to_dmy : Unix.tm -> date_dmy
 val floattime_to_unixtime : float_time -> Unix.tm
 val today : unit -> float_time
+val month_before : float_time -> float_time
 val rough_days_between_dates : date_dmy -> date_dmy -> days
 val maximum_dmy : date_dmy list -> date_dmy
 val minimum_dmy : date_dmy list -> date_dmy
@@ -190,6 +259,8 @@ val take_while : ('a -> bool) -> 'a list -> 'a list
 val drop_while : ('a -> bool) -> 'a list -> 'a list
 val splitAt : int -> 'a list -> 'a list * 'a list
 val split_when : ('a -> bool) -> 'a list -> 'a list * 'a * 'a list
+val split_gen_when : ('a list -> 'a list option) -> 'a list -> 'a list list
+val span_tail_call : ('a -> bool) -> 'a list -> 'a list * 'a list
 val head_middle_tail : 'a list -> 'a * 'a list * 'a
 val list_last : 'a list -> 'a
 val list_init : 'a list -> 'a list
@@ -200,13 +271,25 @@ val pack_safe : int -> 'a list -> 'a list list
 val chunks : int -> 'a list -> 'a list list
 val remove_first : 'a -> 'a list -> 'a list
 val uniq_eff : 'a list -> 'a list
+val uniq : 'a list -> 'a list
 val map_flatten : ('a -> 'b list) -> 'a list -> 'b list
+val acc_map : ('a -> 'b) -> 'a list -> 'b list
+val map_eff_rev : ('a -> 'b) -> 'a list -> 'b list
 val maximum : 'a list -> 'a
 val minimum : 'a list -> 'a
 val count_elements_sorted_highfirst : 'a list -> ('a * int) list
 val or_list : bool list -> bool
 val and_list : bool list -> bool
 val return_when : ('a -> 'b option) -> 'a list -> 'b
+val hd_opt : 'a list -> 'a option
+val iter_with_previous_opt : ('a option -> 'a -> unit) -> 'a list -> unit
+val repeat : 'a -> int -> 'a list
+val foldl1 : ('a -> 'a -> 'a) -> 'a list -> 'a
+val foldn : ('a -> int -> 'a) -> 'a -> int -> 'a
+val filter : ('a -> bool) -> 'a list -> 'a list
+val zip : 'a list -> 'b list -> ('a * 'b) list
+val unzip : ('a * 'b) list -> 'a list * 'b list
+val unzip3 : ('a * 'b * 'c) list -> 'a list * 'b list * 'c list
 
 val group_by_pre : ('a -> bool) -> 'a list -> 'a list * ('a * 'a list) list
 val group_by_mapped_key : ('a -> 'b) -> 'a list -> ('b * 'a list) list
@@ -216,6 +299,7 @@ val group_by_mapped_key : ('a -> 'b) -> 'a list -> ('b * 'a list) list
 (*###########################################################################*)
 
 val union_set : 'a set -> 'a set -> 'a set
+val minus_set : 'a list -> 'a list -> 'a list
 val ( $+$ ) : 'a set -> 'a set -> 'a set
 
 (*###########################################################################*)
@@ -224,6 +308,8 @@ val ( $+$ ) : 'a set -> 'a set -> 'a set
 
 val keys : ('a * 'b) list -> 'a list
 val sort_by_key_highfirst : ('a, 'b) assoc -> ('a * 'b) list
+val assoc : 'a -> ('a * 'b) list -> 'b
+val assoc_opt : 'a -> ('a * 'b) list -> 'b option
 
 (*###########################################################################*)
 (* Hash *)
@@ -234,6 +320,7 @@ val hmem : 'a -> ('a, 'b) Hashtbl.t -> bool
 val hfind_option : 'a -> ('a, 'b) Hashtbl.t -> 'b option
 val hupdate_default :
   'a -> update:('b -> 'b) -> default:(unit -> 'b) -> ('a, 'b) Hashtbl.t -> unit
+val diff_set_eff : 'a list -> 'a list -> 'a list * 'a list * 'a list
 
 val hash_with_default :
   (unit -> 'b) ->
