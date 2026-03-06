@@ -870,6 +870,8 @@ let (union_set : 'a set -> 'a set -> 'a set) =
        (fun acc x -> if List.mem x s1 then acc else insert_set x acc)
        s1
 
+let ( $+$ ) = union_set
+
 type ('a, 'b) assoc = ('a * 'b) list
 (* with sexp *)
 
