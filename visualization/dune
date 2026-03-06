@@ -1,13 +1,12 @@
 ; this library used to be in pfff and called pfff-h_visualization
+; Simple_color moved to semgrep-pfff-libs/color/
+; Treemap moved to libs/treemap/ (codemap-specific)
 (library
  (public_name visualization)
  (name visualization)
  (wrapped false)
  (libraries
-   yojson ocamlgraph
-
-   commons profiling
-   files-format
+   commons
+   color
  )
- (preprocess (pps ppx_deriving.show profiling.ppx))
 )
