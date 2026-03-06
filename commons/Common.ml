@@ -272,39 +272,16 @@ let ( let/ ) = Result.bind
 (*****************************************************************************)
 (* Regexp, can also use PCRE *)
 (*****************************************************************************)
+(* Now in Regexp_.ml *)
 
-let (matched : int -> string -> string) = fun i s -> Str.matched_group i s
-let matched1 s = matched 1 s
-let matched2 s = (matched 1 s, matched 2 s)
-let matched3 s = (matched 1 s, matched 2 s, matched 3 s)
-let matched4 s = (matched 1 s, matched 2 s, matched 3 s, matched 4 s)
-
-let matched5 s =
-  (matched 1 s, matched 2 s, matched 3 s, matched 4 s, matched 5 s)
-
-let matched6 s =
-  (matched 1 s, matched 2 s, matched 3 s, matched 4 s, matched 5 s, matched 6 s)
-
-let matched7 s =
-  ( matched 1 s,
-    matched 2 s,
-    matched 3 s,
-    matched 4 s,
-    matched 5 s,
-    matched 6 s,
-    matched 7 s )
-
-let _memo_compiled_regexp = Hashtbl.create 101
-
-let candidate_match_func s re =
-  (* old: Str.string_match (Str.regexp re) s 0 *)
-  let compile_re =
-    memoized _memo_compiled_regexp re (fun () -> Str.regexp re)
-  in
-  Str.string_match compile_re s 0
-
-let match_func s re = candidate_match_func s re
-let ( =~ ) s re = match_func s re
+let matched1 = Regexp_.matched1
+let matched2 = Regexp_.matched2
+let matched3 = Regexp_.matched3
+let matched4 = Regexp_.matched4
+let matched5 = Regexp_.matched5
+let matched6 = Regexp_.matched6
+let matched7 = Regexp_.matched7
+let ( =~ ) = Regexp_.Operators.( =~ )
 
 (*****************************************************************************)
 (* Strings *)

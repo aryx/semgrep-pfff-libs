@@ -5,6 +5,7 @@
  (libraries
    (re_export commons.base)
    (re_export commons.collections)
+   (re_export commons.regexps)
    TCB
    ; stdlib
    str

@@ -1,0 +1,19 @@
+(library
+ (name commons_regexps)
+ (public_name commons.regexps)
+ (wrapped false)
+ (flags (:standard -open TCB))
+ (libraries
+   TCB
+   str
+   pcre
+   pcre2
+   logs
+ )
+ (preprocess
+   (pps
+     ppx_deriving.show
+     ppx_deriving.eq
+   )
+ )
+)
