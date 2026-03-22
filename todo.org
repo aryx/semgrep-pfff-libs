@@ -1,0 +1,26 @@
+
+* Last
+
+*** less: more commons/ split
+
+*** less: migrate use to OCaml stdlib to reduced the (now merged) common2.ml
+or use Common or one of the Xxx_.ml extensions to stdlib
+
+
+*** add a conf-tree-sitter package?
+path towards releasing the tree-sitter parsers?
+remove the battery-included tree-sitter tgz 0.22.2
+actually max added one in 2021! just need to refine it?
+https://opam.ocaml.org/packages/conf-tree-sitter/
+
+try to put back parser_lisp/ in codemap and use this
+conf-tree-sitter thing?
+
+*** publish semgrep libs on OPAM at least or integrate them in
+codemap, or codegraph, or whatever
+
+*** less: switch UnixExit to ExitCode in semgrep-libs ?
+need ExitCode of code * string option then?
+
+*** LATER finish ojsonnet
+
