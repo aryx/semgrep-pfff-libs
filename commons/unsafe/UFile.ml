@@ -115,7 +115,12 @@ module Legacy = struct
         let res = f (xpr, chan) in
         close_out chan;
         res)
-      (fun _e -> close_out chan)
+      (fun e -> 
+         (* alt: add a flag, ?keep_file_even_when_error=false *)
+         Logs.warn (fun m -> m "deleting %s because of exn %s"
+                file (Exception.to_string e));
+         close_out chan
+      )
 
   let (with_open_infile : string (* filename *) -> (in_channel -> 'a) -> 'a) =
    fun file f ->
