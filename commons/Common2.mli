@@ -212,7 +212,7 @@ val lines : string -> string list
 val unlines : string list -> string
 val lines_with_nl_either : string -> (string, unit) Either.t list
 
-val glob : string -> string list
+val glob : < Cap.readdir; .. > -> string -> string list
 val unix_diff : string -> string -> string list
 
 (*###########################################################################*)

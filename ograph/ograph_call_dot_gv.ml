@@ -65,16 +65,16 @@ let generate_ograph_xxx g filename =
  * properly built Cmd, or even switch to CapExec!
  *)
 let launch_png_cmd (caps : < Cap.exec ; .. >) filename =
-  CapExec.cmd_to_list caps#exec (spf "dot -Tpng %s -o %s.png" filename filename)
+  CapExec.cmd_to_list caps (spf "dot -Tpng %s -o %s.png" filename filename)
   |> ignore;
-  CapExec.cmd_to_list caps#exec (spf "open %s.png" filename) |> ignore;
+  CapExec.cmd_to_list caps (spf "open %s.png" filename) |> ignore;
   ()
 
 let launch_gv_cmd (caps : < Cap.exec ; .. >) filename =
-  CapExec.cmd_to_list caps#exec
+  CapExec.cmd_to_list caps
     ("dot " ^ filename ^ " -Tps  -o " ^ filename ^ ".ps;")
   |> ignore;
-  CapExec.cmd_to_list caps#exec ("gv " ^ filename ^ ".ps") |> ignore;
+  CapExec.cmd_to_list caps ("gv " ^ filename ^ ".ps") |> ignore;
   (* weird: I needed this when I launch the program with '&' via eshell,
    * otherwise 'gv' did not get the chance to be launched
    * Unix.sleep 1;
@@ -113,7 +113,7 @@ let pp_ograph_mutable_generic (caps : < Cap.exec ; .. >) ?title ~s_of_node f g :
           generate_ograph_generic g title s_of_node f);
       (* Generate svg and put in original buffer *)
       match
-        CapExec.string_of_run caps#exec ~trim:false
+        CapExec.string_of_run caps ~trim:false
           (Name "dot", [ "-Tsvg_inline"; Format.asprintf "%a" Fpath.pp tmp ])
       with
       | Ok (s, (_, `Exited 0)) -> Format.fprintf f "<pre>%s</pre>" s

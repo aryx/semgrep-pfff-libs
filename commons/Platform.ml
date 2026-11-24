@@ -5,7 +5,7 @@ type kernel = Darwin | Linux | OtherKernel of string
 (* TODO: should use CapExec.string_of_run instead of with_open_process_in *)
 
 let arch (caps : < Cap.exec >) =
-  CapExec.with_open_process_in caps#exec "uname -m" (fun chan ->
+  CapExec.with_open_process_in caps "uname -m" (fun chan ->
       let s =
         In_channel.input_all chan |> String.trim |> String.lowercase_ascii
       in
@@ -16,7 +16,7 @@ let arch (caps : < Cap.exec >) =
       | _ -> OtherArch s)
 
 let kernel (caps : < Cap.exec >) =
-  CapExec.with_open_process_in caps#exec "uname" (fun chan ->
+  CapExec.with_open_process_in caps "uname" (fun chan ->
       let s =
         In_channel.input_all chan |> String.trim |> String.lowercase_ascii
       in

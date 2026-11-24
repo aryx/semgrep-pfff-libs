@@ -63,7 +63,7 @@ let current_timer = ref None
 
   question: can we have a signal and so exn when in a exn handler ?
 *)
-let set_timeout (caps : < Cap.time_limit >) ~name max_duration f =
+let set_timeout (caps : < Cap.time_limit; Cap.signal >) ~name max_duration f =
   (match !current_timer with
   | None -> ()
   | Some { Exception.name = running_name; max_duration = running_val } ->
@@ -87,7 +87,7 @@ let set_timeout (caps : < Cap.time_limit >) ~name max_duration f =
     |> ignore
   in
   try
-    Sys.set_signal Sys.sigalrm (Sys.Signal_handle (fun _ -> raise_timeout ()));
+    CapSys.set_signal caps Sys.sigalrm (Sys.Signal_handle (fun _ -> raise_timeout ()));
     set_timer ();
     let x = f () in
     clear_timer ();

@@ -15,7 +15,7 @@ let tests caps =
       t "string_of_run and putenv" (fun () ->
           Testutil_mock.with_setenv "FOO" "bar" (fun () ->
               let cmd = (Cmd.Name "sh", [ "-c"; "echo $FOO" ]) in
-              let res = CapExec.string_of_run caps#exec ~trim:true cmd in
+              let res = CapExec.string_of_run caps ~trim:true cmd in
               match res with
               | Ok (str, _status) ->
                   Alcotest.(check string)
@@ -26,7 +26,7 @@ let tests caps =
           Testutil_mock.with_setenv "FOO" "bar" (fun () ->
               let cmd = (Cmd.Name "sh", [ "-c"; "echo $FOO" ]) in
               let env = Cmd.env_of_list [ ("FOO", "foo") ] in
-              let res = CapExec.string_of_run caps#exec ~trim:true ~env cmd in
+              let res = CapExec.string_of_run caps ~trim:true ~env cmd in
               match res with
               | Ok (str, _status) ->
                   Alcotest.(check string)
@@ -37,7 +37,7 @@ let tests caps =
           Testutil_mock.with_setenv "FOO" "bar" (fun () ->
               let cmd = (Cmd.Name "sh", [ "-c"; "echo $FOO" ]) in
               let env = Cmd.env_of_list [ ("BAR", "foo") ] in
-              let res = CapExec.string_of_run caps#exec ~trim:true ~env cmd in
+              let res = CapExec.string_of_run caps ~trim:true ~env cmd in
               match res with
               | Ok (str, _status) ->
                   Alcotest.(check string)
@@ -47,7 +47,7 @@ let tests caps =
           Testutil_mock.with_setenv "FOO" "bar" (fun () ->
               let cmd = (Cmd.Name "sh", [ "-c"; "echo $FOO:$BAR" ]) in
               let env = Cmd.env_of_list [ ("BAR", "foo") ] in
-              let res = CapExec.string_of_run caps#exec ~trim:true ~env cmd in
+              let res = CapExec.string_of_run caps ~trim:true ~env cmd in
               match res with
               | Ok (str, _status) ->
                   Alcotest.(check string)

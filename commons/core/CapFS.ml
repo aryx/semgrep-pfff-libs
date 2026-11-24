@@ -10,6 +10,9 @@ let with_dir_handle path func =
 
 (* Read the names found in a directory, excluding "." and "..". *)
 let read_dir_entries (caps : < Cap.readdir ; .. >) path =
+  (* claude: readdir is now a function of the path, so that it can be
+   * restricted dynamically; honor such a restriction *)
+  caps#readdir (Fpath.to_string path) |> ignore;
   with_dir_handle path (fun dir ->
       let rec loop acc =
         try

@@ -656,11 +656,10 @@ let sanity_check_files_and_adjust ext files =
 
 let dir_regex = Str.regexp "^[^\\*]*"
 
-let glob pattern =
+let glob (caps : < Cap.readdir; .. >) pattern =
   Str.search_forward dir_regex pattern 0 |> ignore;
   let dir = Str.matched_string pattern in
   let regex = pattern |> Re.Glob.glob ~anchored:true |> Re.compile in
-  let caps = Cap.readdir_UNSAFE () in
   let files = UFile.Legacy.dir_contents caps dir in
   files |> List.filter (fun s -> Re.execp regex s)
 

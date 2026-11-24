@@ -20,13 +20,13 @@ val string_of_timeout_info : timeout_info -> string
    tl;dr nesting will fail
 *)
 val set_timeout :
-  < Cap.time_limit > -> name:string -> float -> (unit -> 'a) -> 'a option
+  < Cap.time_limit; Cap.signal > -> name:string -> float -> (unit -> 'a) -> 'a option
 
 (*
    Only set a timer if a time limit is specified. Uses 'set_timeout'.
 *)
 val set_timeout_opt :
   name:string ->
-  (float * < Cap.time_limit >) option ->
+  (float * < Cap.time_limit; Cap.signal >) option ->
   (unit -> 'a) ->
   'a option

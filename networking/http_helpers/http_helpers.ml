@@ -200,8 +200,14 @@ let call_client ?(body = Cohttp_lwt.Body.empty) ?(headers = [])
 (*****************************************************************************)
 (* Async *)
 (*****************************************************************************)
+(* claude: the network capability is now a function of the host, so that
+ * it can be restricted dynamically (e.g., to whitelist some hosts) *)
+let check_network (caps : < Cap.network; .. >) (url : Uri.t) : unit =
+  caps#network (Option.value ~default:"" (Uri.host url)) |> ignore
+
 let rec get ?(headers = []) caps url =
   Log.info (fun m -> m "GET on %s" (Uri.to_string url));
+  check_network caps url;
   (* This checks to make sure a client has been set *)
   (* Instead of defaulting to a client, as that can cause *)
   (* Hard to debug build and runtime issues *)
@@ -232,8 +238,9 @@ let rec get ?(headers = []) caps url =
 [@@profiling]
 
 let post ~body ?(headers = [ ("content-type", "application/json") ])
-    ?(chunked = false) _caps url =
+    ?(chunked = false) caps url =
   Log.info (fun m -> m "POST on %s" (Uri.to_string url));
+  check_network caps url;
   let response =
     call_client
       ~body:(Cohttp_lwt.Body.of_string body)

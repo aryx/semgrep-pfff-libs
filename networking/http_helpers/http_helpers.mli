@@ -43,7 +43,7 @@ val call_client :
 
 val get :
   ?headers:(string * string) list ->
-  Cap.Network.t ->
+  < Cap.network; .. > ->
   Uri.t ->
   client_result Lwt.t
 (** [get_async ~headers caps uri] retrieves [uri] (via HTTP GET) with the
@@ -57,7 +57,7 @@ val post :
   body:string ->
   ?headers:(string * string) list ->
   ?chunked:bool ->
-  Cap.Network.t ->
+  < Cap.network; .. > ->
   Uri.t ->
   client_result Lwt.t
 (** [post_async ~body ~headers ~chunked caps uri] asynchronously sends a
